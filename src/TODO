@@ -1,0 +1,7 @@
+Disable key inputs on modal launch (atm, it is causing the page to re-render on every type, slowing everything down)
+
+Holding a right / left direction then pressing up near the picture will sometimes not show the a trigger
+
+Check that all the touch events work properly on tablet / phone (especially touch and moving and releasing elsewhere)
+
+Let falling block game use mobile on screen keys

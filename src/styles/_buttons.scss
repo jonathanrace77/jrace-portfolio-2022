@@ -1,0 +1,93 @@
+/* Buttons */
+
+.overlay-buttons-container {
+  position: absolute;
+  bottom: 140px;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 105px;
+  z-index: 200;
+}
+
+.overlay-buttons-action {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  height: 95px;
+  width: 95px;
+  padding: 5px;
+}
+
+.overlay-buttons-a {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.overlay-buttons-x {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.overlay-buttons-arrows {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto;
+  height: 95px;
+  width: 147.5px;
+  padding: 5px;
+}
+
+.overlay-buttons-up {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.overlay-buttons-right {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.overlay-buttons-down {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.overlay-buttons-left {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.overlay-button {
+  color: rgba(255, 255, 255, 0.75);
+  border: solid 1px rgba(255, 255, 255, 0.5);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin: 1px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.overlay-button:hover {
+  color: rgba(255, 255, 255, 0.75);
+  border: solid 1px rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+
+.overlay-button-icon {
+  font-size: 12px;
+}

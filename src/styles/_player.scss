@@ -1,0 +1,82 @@
+/* Player */
+
+#playerAlert {
+    position: fixed;
+    position: fixed;
+    top: calc(50% - (var(--tile-height)/2) - var(--tile-height));
+    left: calc(50% - var(--tile-width)/2);
+    width: var(--tile-width);
+    height: var(--tile-height);
+    background: url(/src/img/AlertBubble.png);
+    z-index: 10;
+}
+
+#playerAlertA {
+    position: fixed;
+    position: fixed;
+    top: calc(50% - (var(--tile-height)/2) - var(--tile-height));
+    left: calc(50% - var(--tile-width)/2);
+    width: var(--tile-width);
+    height: var(--tile-height);
+    background: url(/src/img/AlertA.png);
+    z-index: 10;
+
+    -webkit-animation: alert-button-hover 1s linear infinite;
+    -moz-animation: alert-button-hover 1s linear infinite;
+    animation: alert-button-hover 1s linear infinite;
+}
+
+#player {
+    position: fixed;
+    position: fixed;
+    top: calc(50% - var(--tile-width)/2);
+    left: calc(50% - var(--tile-height)/2);
+    width: var(--tile-width);
+    height: var(--tile-height);
+    animation-timing-function: step-start;
+}
+
+@-moz-keyframes alert-button-hover {
+    0% {
+        -moz-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+
+    50% {
+        -moz-transform: translateY(calc(1 / 32 * var(--tile-height)));
+    }
+
+    100% {
+        -moz-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+}
+
+@-webkit-keyframes alert-button-hover {
+    0% {
+        --webkit-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+
+    50% {
+        -webkit-transform: translateY(calc(1 / 32 * var(--tile-height)));
+    }
+
+    100% {
+        -webkit-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+}
+
+@keyframes alert-button-hover {
+    0% {
+        -webkit-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+        transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+
+    50% {
+        -webkit-transform: translateY(calc(1 / 32 * var(--tile-height)));
+        transform: translateY(calc(1 / 32 * var(--tile-height)));
+    }
+
+    100% {
+        -webkit-transform: translateY(calc(-1 / 32 * var(--tile-height)));
+        transform: translateY(calc(-1 / 32 * var(--tile-height)));
+    }
+}

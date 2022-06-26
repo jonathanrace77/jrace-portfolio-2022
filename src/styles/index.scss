@@ -1,0 +1,188 @@
+:root {
+  --tile-width: 64px;
+  --tile-height: 64px;
+  --tile-set-world: url(/src/img/TileSetWorld.png);
+  --tile-set-skills: url(/src/img/TileSetSkills.png);
+  --tile-set-portfolio: url(/src/img/TileSetPortfolio.png);
+  --tile-set-home: url(/src/img/TileSetHome.png);
+  --primary-accent-color: #0f94c2;
+}
+
+@import '_header';
+@import '_contact';
+@import '_crt';
+@import '_footer';
+@import '_modal';
+@import '_worldTiles';
+@import '_skillsTiles';
+@import '_portfolioTiles';
+@import '_homeTiles';
+@import '_playerTiles';
+@import '_player';
+@import '_buttons';
+@import '_fallingBlockGame';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 1vh;
+  width: 1vw;
+  overflow: hidden;
+  background: var(--primary-accent-color);
+  color: #444;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#world-map-container {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#windmill-blades {
+  z-index: 5;
+  position: absolute;
+  top: calc(-2 * var(--tile-height));
+  right: calc(1 * var(--tile-width));
+  -webkit-animation: spin 32s linear infinite;
+  -moz-animation: spin 32s linear infinite;
+  animation: spin 32s linear infinite;
+}
+
+#skills-container {
+  z-index: 5;
+
+  img {
+    position: absolute;
+    -webkit-animation: hover 4s linear infinite;
+    -moz-animation: hover 4s linear infinite;
+    animation: hover 4s linear infinite;
+  }
+}
+
+#skills-html {
+  top: calc(4 * var(--tile-height));
+  right: calc((11 * var(--tile-width)));
+}
+
+#skills-css {
+  top: calc(4 * var(--tile-height));
+  right: calc(8 * var(--tile-width));
+}
+
+#skills-js {
+  top: calc(4 * var(--tile-height));
+  right: calc(5 * var(--tile-width));
+}
+
+#skills-react {
+  top: calc(4 * var(--tile-height));
+  right: calc(2 * var(--tile-width));
+}
+
+#skills-dot-net {
+  top: calc(8 * var(--tile-height));
+  right: calc(11 * var(--tile-width));
+}
+
+#skills-c-sharp {
+  top: calc(8 * var(--tile-height));
+  right: calc(8 * var(--tile-width));
+}
+
+#skills-sql {
+  top: calc(8 * var(--tile-height));
+  right: calc(5 * var(--tile-width));
+}
+
+#skills-other {
+  top: calc(8 * var(--tile-height));
+  right: calc(2 * var(--tile-width));
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(-360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+
+@-moz-keyframes hover {
+  0% {
+    -moz-transform: translateY(0);
+  }
+
+  50% {
+    -moz-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -moz-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes hover {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes hover {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+    transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.map-tile {
+  width: var(--tile-width);
+  height: var(--tile-height);
+}
+
+.text-no-select{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: moz-none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
