@@ -3,15 +3,16 @@
 footer {
     display: grid;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--background-color);
     padding: 38px 0 38px 0;
     width: 100vw;
     width: 100vw;
     position: fixed;
     bottom: 0;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     backdrop-filter: blur(10px);
     z-index: 100;
+    transition: var(--transition-time);
 }
 
 #copyright p {
@@ -31,7 +32,7 @@ footer {
 }
 
 .social-media-icons {
-    color: #444;
+    color: var(--primary-font-color);
     font-size: 26px;
     margin-left: 25px;
     margin-right: 25px;
@@ -46,5 +47,11 @@ footer {
     .social-media-icons {
         margin-left: 12.5px;
         margin-right: 12.5px;
+    }
+}
+
+@media only screen and (max-width: 1350px) and (max-height: 1150px){
+    footer{
+        display: none;
     }
 }

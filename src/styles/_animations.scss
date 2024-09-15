@@ -1,0 +1,187 @@
+// Windmill Spin
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(-360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+
+// Skills Hover
+
+@-moz-keyframes hover {
+  0% {
+    -moz-transform: translateY(0);
+  }
+
+  50% {
+    -moz-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -moz-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes hover {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes hover {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 4 * var(--tile-height)));
+    transform: translateY(calc(-1 / 4 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+// Duck Bob
+
+@-moz-keyframes duckBob {
+  0% {
+    -moz-transform: translateY(0);
+  }
+
+  50% {
+    -moz-transform: translateY(calc(-1 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -moz-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes duckBob {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes duckBob {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(calc(-1 / 16 * var(--tile-height)));
+    transform: translateY(calc(-1 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+// Duck Appear
+
+@-moz-keyframes duckAppear {
+  0% {
+    -moz-transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  70% {
+    -moz-transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  75% {
+    -moz-transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  95% {
+    -moz-transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -moz-transform: translateY(calc(1 * var(--tile-height)));
+  }
+}
+
+@-webkit-keyframes duckAppear {
+  0% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  70% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  75% {
+    -webkit-transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  95% {
+    -webkit-transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+  }
+}
+
+@keyframes duckAppear {
+  0% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+    transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  70% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+    transform: translateY(calc(1 * var(--tile-height)));
+  }
+
+  75% {
+    -webkit-transform: translateY(calc(7 / 16 * var(--tile-height)));
+    transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  95% {
+    -webkit-transform: translateY(calc(7 / 16 * var(--tile-height)));
+    transform: translateY(calc(7 / 16 * var(--tile-height)));
+  }
+
+  100% {
+    -webkit-transform: translateY(calc(1 * var(--tile-height)));
+    transform: translateY(calc(1 * var(--tile-height)));
+  }
+}

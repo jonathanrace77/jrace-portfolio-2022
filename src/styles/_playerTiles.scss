@@ -1,33 +1,33 @@
 /* Player Tiles */
 
 [data-tile="playerWest"] {
-  background: url(/src/img/TileSetPlayer.png) 0 0px;
+  background: var(--tile-set-player) 0 0px;
 }
 
 [data-tile="playerWestMove"] {
-  background: url(/src/img/TileSetPlayer.png) calc(0 * var(--tile-width)) calc(-1 * var(--tile-height))
+  background: var(--tile-set-player) calc(0 * var(--tile-width)) calc(-1 * var(--tile-height))
 }
 
 [data-tile="playerEast"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-1 * var(--tile-width)) calc(0 * var(--tile-height));
+  background: var(--tile-set-player) calc(-1 * var(--tile-width)) calc(0 * var(--tile-height));
 }
 
 [data-tile="playerEastMove"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-1 * var(--tile-width)) calc(-1 * var(--tile-height))
+  background: var(--tile-set-player) calc(-1 * var(--tile-width)) calc(-1 * var(--tile-height))
 }
 
 [data-tile="playerNorth"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-3 * var(--tile-width)) calc(0 * var(--tile-height));
+  background: var(--tile-set-player) calc(-3 * var(--tile-width)) calc(0 * var(--tile-height));
 }
 
 [data-tile="playerNorthMove"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-3 * var(--tile-width)) calc(-1 * var(--tile-height))
+  background: var(--tile-set-player) calc(-3 * var(--tile-width)) calc(-1 * var(--tile-height))
 }
 
 [data-tile="playerSouth"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-2 * var(--tile-width)) calc(0 * var(--tile-height));
+  background: var(--tile-set-player) calc(-2 * var(--tile-width)) calc(0 * var(--tile-height));
 }
 
 [data-tile="playerSouthMove"] {
-  background: url(/src/img/TileSetPlayer.png) calc(-2 * var(--tile-width)) calc(-1 * var(--tile-height))
+  background: var(--tile-set-player) calc(-2 * var(--tile-width)) calc(-1 * var(--tile-height))
 }

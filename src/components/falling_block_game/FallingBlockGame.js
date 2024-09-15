@@ -41,11 +41,16 @@ class FallingBlockGame extends React.Component {
     };
 
     this.boardCreator = this.boardCreator.bind(this);
-    this.fallingBlockGameControls = this.fallingBlockGameControls.bind(this);
     this.fallLogic = this.fallLogic.bind(this);
     this.handleArrowKey = this.handleArrowKey.bind(this);
     this.fallTimer = this.fallTimer.bind(this);
     this.arrowBlockDown = this.arrowBlockDown.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);    
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
   }
 
   // Builds initial board, includes CSS rules
@@ -72,22 +77,17 @@ class FallingBlockGame extends React.Component {
     return boardArray;
   }
 
-  // Builds controls for mobile
-  fallingBlockGameControls() {
-    return <div id="fallingBlockGame-button-container">
-      <i className="fas fa-arrow-left fallingBlockGame-mobile-button" id="fallingBlockGame-left-button"></i>
-      <i className="fas fa-arrow-down fallingBlockGame-mobile-button" id="fallingBlockGame-down-button"></i>
-      <i className="fas fa-sync-alt fallingBlockGame-mobile-button" id="fallingBlockGame-rotate-button"></i>
-      <i className="fas fa-arrow-right fallingBlockGame-mobile-button" id="fallingBlockGame-right-button"></i>
-    </div>;
-  }
-
   // Handles Arrow Key Press Down
   handleArrowKey(e) {
     e.preventDefault();
     this.setState({ iskeyFuncTriggered: 0 });
 
-    if (e.key === "ArrowRight" || e.target.id === "fallingBlockGame-right-button") {
+    let arrowButton;
+
+    if (e.target.closest('.overlay-button') !== null)
+      arrowButton = e.target.closest('.overlay-button').getAttribute("data-overlay-button");
+
+    if (e.key === "ArrowRight" || arrowButton === "ArrowRight") {
       this.setState((prevState) => {
         let blockX = prevState.blockX;
         if (canBlockMoveLeftRight(this.state.board, "right", 1)) {
@@ -97,7 +97,7 @@ class FallingBlockGame extends React.Component {
       });
     }
 
-    if (e.key === "ArrowLeft" || e.target.id === "fallingBlockGame-left-button") {
+    if (e.key === "ArrowLeft" || arrowButton === "ArrowLeft") {
       this.setState((prevState) => {
         let blockX = prevState.blockX;
         if (canBlockMoveLeftRight(this.state.board, "left", 1)) {
@@ -107,7 +107,7 @@ class FallingBlockGame extends React.Component {
       });
     }
 
-    if (e.key === "ArrowUp" || e.target.id === "fallingBlockGame-rotate-button") {
+    if (e.key === "ArrowUp" || arrowButton === "ArrowUp") {
       let newRot = this.state.blockRot;
       if (newRot < 3) {
         newRot++;
@@ -133,7 +133,7 @@ class FallingBlockGame extends React.Component {
       }
     }
 
-    if (e.key === "ArrowDown" || e.target.id === "fallingBlockGame-down-button") {
+    if (e.key === "ArrowDown" || arrowButton === "ArrowDown") {
       this.setState({
         isDownPressed: 1,
       });
@@ -142,8 +142,13 @@ class FallingBlockGame extends React.Component {
 
   // Handles Arrow Key Press Up
   handleArrowKeyUp(e) {
+    let arrowButton;
+
+    if (e.target.closest('.overlay-button') !== null)
+      arrowButton = e.target.closest('.overlay-button').getAttribute("data-overlay-button");
+
     this.setState({ iskeyFuncTriggered: 0 });
-    if (e.key === "ArrowDown" || e.target.id === "fallingBlockGame-down-button") {
+    if (e.key === "ArrowDown" || arrowButton === "ArrowDown") {
       this.setState({
         isDownPressed: 0,
       });
@@ -153,7 +158,7 @@ class FallingBlockGame extends React.Component {
   // Handles the fall sequence - refreshes every 1ms
   fallLogic() {
     // Loop for blocks to drop
-    setInterval(
+    this.fallLogicInterval = setInterval(
       function () {
         this.setState((prevState) => {
           var board = prevState.board;
@@ -200,7 +205,7 @@ class FallingBlockGame extends React.Component {
 
   // Handles down arrow movement - refreshes every 50ms
   arrowBlockDown() {
-    setInterval(
+    this.arrowBlockDownInterval = setInterval(
       function () {
         this.setState((prevState) => {
           var board = prevState.board;
@@ -231,7 +236,7 @@ class FallingBlockGame extends React.Component {
 
   // Handles timer of block dropping - refreshes according to blockY
   fallTimer() {
-    setInterval(
+    this.fallTimerInterval = setInterval(
       function () {
         this.setState((prevState) => {
           var board = prevState.board;
@@ -371,55 +376,79 @@ class FallingBlockGame extends React.Component {
     this.fallLogic();
     this.arrowBlockDown();
     // Event listeners
-    document.addEventListener("keydown", (e) => {
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKey(e);
-      }
-    });
-    document.addEventListener("keyup", (e) => {
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKeyUp(e);
-      }
-    });
-    document.addEventListener("touchstart", (e) => {
-      if (!e.target.matches('.fallingBlockGame-mobile-button')) return;
-      e.preventDefault();
+    document.addEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keyup", this.handleKeyUp);
+    document.addEventListener("touchstart", this.handleTouchStart);
+    document.addEventListener("touchend", this.handleTouchEnd);
+    document.addEventListener("mousedown", this.handleMouseDown);
+    document.addEventListener("mouseup", this.handleMouseUp);
+  }
 
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKey(e);
-      }
-    });
-    document.addEventListener("touchend", (e) => {
-      if (!e.target.matches('.fallingBlockGame-mobile-button')) return;
-      e.preventDefault();
+  handleKeyDown(e) {
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKey(e);
+    }
+  }
 
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKeyUp(e);
-      }
-    });
-    document.addEventListener("mousedown", (e) => {
-      if (!e.target.matches('.fallingBlockGame-mobile-button')) return;
-      e.preventDefault();
+  handleKeyUp(e) {
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKeyUp(e);
+    }
+  }
 
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKey(e);
-      }
-    });
-    document.addEventListener("mouseup", (e) => {
-      if (!e.target.matches('.fallingBlockGame-mobile-button')) return;
-      e.preventDefault();
+  handleTouchStart(e) {
+    if (e.target.closest('.overlay-button') === null) return;
+    e.preventDefault();
 
-      if (!this.state.iskeyFuncTriggered) {
-        this.handleArrowKeyUp(e);
-      }
-    });
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKey(e);
+    }
+  }
+
+  handleTouchEnd(e) {
+    if (e.target.closest('.overlay-button') === null) return;
+    e.preventDefault();
+
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKeyUp(e);
+    }
+  }
+
+  handleMouseDown(e) {
+    if (e.target.closest('.overlay-button') === null) return;
+    e.preventDefault();
+
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKey(e);
+    }
+  }
+
+  handleMouseUp(e) {
+    if (e.target.closest('.overlay-button') === null) return;
+    e.preventDefault();
+
+    if (!this.state.iskeyFuncTriggered) {
+      this.handleArrowKeyUp(e);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fallTimerInterval);
+    clearInterval(this.fallLogicInterval);
+    clearInterval(this.arrowBlockDownInterval);
+
+    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keyup', this.handleKeyUp);
+    document.removeEventListener('touchstart', this.handleTouchStart);
+    document.removeEventListener('touchend', this.handleTouchEnd);
+    document.removeEventListener('mousedown', this.handleMouseDown);
+    document.removeEventListener('mouseup', this.handleMouseUp);
   }
 
   render() {
     return (
       <div className="BoardContainer">
         <div className="Board">{this.boardCreator()}</div>
-        {/* <div className="FallingBlockGameControls">{this.fallingBlockGameControls()}</div> */}
         <div className="ScoreBoardContainer">
           <div className="ScoreBoardTitle"><h4>SCORE</h4></div>
           <div className="ScoreBoard">{this.state.score}</div>

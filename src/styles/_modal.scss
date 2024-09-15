@@ -1,5 +1,15 @@
 /* Modal */
 
+:root {
+    --modal-header: rgba(34, 34, 34, 1);
+    --modal-panel-background-color: rgba(255, 255, 255, 1);
+}
+
+[data-dark-mode="true"] {
+    --modal-header: rgba(255, 255, 255, 1);
+    --modal-panel-background-color: rgba(68, 68, 68, 1);
+}
+
 #modal-container {
     position: fixed;
     top: 0;
@@ -15,7 +25,7 @@
     h3 {
         margin-top: 0;
         margin-bottom: 15px;
-        color: #222;
+        color: var(--modal-header);
         font-weight: 400;
         font-size: 16px;
         letter-spacing: 2px;
@@ -30,10 +40,10 @@
     display: grid;
     justify-content: center;
     align-content: center;
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--background-color);
     z-index: 105;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
 }
 
 #modal::before {
@@ -100,7 +110,7 @@
 }
 
 .portfolio-container, .skills-container, #contact-container{
-    max-height: 70vh;
+    max-height: 50vh;
     overflow: auto;
 }
 
@@ -150,6 +160,10 @@
     margin-right: 15px;
 }
 
+.introMessageIcon{
+    margin: 0 5px;
+}
+
 @media only screen and (max-width: 1350px) {
     .portfolio-container {
         grid-template-columns: 1fr;
@@ -161,7 +175,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .portfolio-image-col, .portfolio-text-col {
+    .portfolio-image-col, .portfolio-text-col, .skills-text-col {
         max-width: 70vw;
     }
 

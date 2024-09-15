@@ -1,48 +1,58 @@
-import ContactModalContents from './modals/ContactModalContents.js'
-import useState from 'react-usestateref';
-import React from 'react';
+import ContactModalContents from "./modals/ContactModalContents.js";
+import DarkModeSwitch from "./DarkModeSwitch.js";
+import React from "react";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(fas);
 
 var images = {
-    logo: require("../img/logo_dark.png"),
-    pdf: require("../img/pdf-logo.png"),
+  logo: require("../img/logo_dark.png"),
+  logoDark: require("../img/logo_light.png"),
+  pdf: require("../img/pdf-logo.png"),
 };
 
 var cv = require("../JonathanRaceCv.pdf");
 
-export default function Header({ updateModal, showModal, hideModal }) {
-    const loadContactModal = () => {
-        updateModal({head: "Contact", body: <ContactModalContents />});
-        showModal();
-    }
+export default function Header({ updateModal, showModal, hideModal, toggleDarkMode, themeIsDarkMode }) {
+  const loadContactModal = () => {
+    updateModal({ head: "Contact", body: <ContactModalContents /> });
+    showModal();
+  };
 
-    return (
-        <header id="header-container">
-            <div className="logo-section">
-                <div className="logo-container">
-                    <img
-                        alt="jonathan race logo"
-                        src={images.logo}
-                    ></img>
-                </div>
-                <div className="logo-caption">
-                    FULL-STACK<br></br>DEVELOPER
-                </div>
-            </div>
+  return (
+    <header id="header-container">
+      <div className="logo-section">
+        <div className="logo-container">
+          <img alt="jonathan race logo" src={themeIsDarkMode ? images.logoDark : images.logo}></img>
+        </div>
+        <div className="logo-caption">
+          FULL-STACK<br></br>DEVELOPER
+        </div>
+      </div>
 
-            <nav>
-                <div className="header-menu-container">
-                    <ul>
-
-                        <li key="menu-border-right-portfolio">
-                            <a href={cv} target="_blank"><img src={images.pdf}></img></a>
-                        </li>
-                        <li key="menu-border-right-contact">
-                            <div className="header-contact" onClick={loadContactModal}>
-                                CONTACT
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>);
+      <nav>
+        <div className="header-menu-container">
+          <ul>
+            {<DarkModeSwitch toggleDarkMode={toggleDarkMode} />}
+            <li key="menu-border-right-portfolio">
+              <a href={cv} target="_blank">
+                <img src={images.pdf}></img>
+              </a>
+            </li>
+            <li key="menu-border-right-contact">
+              <div className="header-contact" onClick={loadContactModal}>
+                <span id="contact-text">CONTACT</span>
+                <span id="contact-icon">
+                  <FontAwesomeIcon icon={["fas", "envelope"]} />
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  );
 }

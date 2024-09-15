@@ -41,14 +41,14 @@ export default function ContactModalContents() {
                         ></input>
                         <br></br>
                         <label htmlFor="message"></label>
-                        <input
+                        <textarea
                             className="contact-form-text-area gsap-section-fade-up"
                             type="text"
                             id="message"
                             name="message"
                             placeholder="Message"
                             required
-                        ></input>
+                        ></textarea>
                         <br></br>
                         <button type="submit" id="submit-button" className="gsap-section-fade-up">
                             Send

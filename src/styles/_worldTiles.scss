@@ -3,423 +3,419 @@
 /* Grass Tiles */
 
 [data-tile="gra000"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra001"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra002"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra003"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra004"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra005"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra006"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra007"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra008"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra009"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra010"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-10 * var(--tile-width) - 11px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra011"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(0 * var(--tile-height));
   }
   
   [data-tile="gra012"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-6 * var(--tile-height));
   }
   
   [data-tile="gra013"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-6 * var(--tile-height));
   }
   
   /* Sand tiles */
   
   [data-tile="san000"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san001"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san002"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san003"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san004"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san005"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="san006"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-1 * var(--tile-height));
   }
   
   /* Water Tiles */
   
-  [data-tile="wat000"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(-3 * var(--tile-height));
-  }
-  
   [data-tile="wat001"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="wat002"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="wat003"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="wat004"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="wat005"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="wat006"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(0 * var(--tile-height));
   }
   
   [data-tile="wat007"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(0 * var(--tile-height));
   }
   
   [data-tile="wat008"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(0 * var(--tile-height));
   }
   
   [data-tile="wat009"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(0 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(0 * var(--tile-height));
   }
   
   [data-tile="wat010"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat011"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat012"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat013"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-10 * var(--tile-width) - 11px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat014"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat015"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat016"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat017"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat018"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(-1 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(-1 * var(--tile-height));
   }
   
   [data-tile="wat019"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-6 * var(--tile-height));
   }
   
   [data-tile="wat020"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-6 * var(--tile-height));
   }
   
   [data-tile="wat021"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-6 * var(--tile-height));
   }
   
   [data-tile="wat022"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-6 * var(--tile-height));
   }
   
   [data-tile="wat023"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-6 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-6 * var(--tile-height));
   }
   
   /* Bridge Tiles */
   
   [data-tile="bri000"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri001"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri002"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri003"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri004"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri005"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri006"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri007"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri008"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri009"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri010"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-10 * var(--tile-width) - 11px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri011"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="bri012"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(-5 * var(--tile-height));
   }
   
   /* Building Tiles */
   
   [data-tile="bui000"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui001"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui002"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui003"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui004"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui005"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui006"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui007"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui008"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui009"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui010"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-10 * var(--tile-width) - 11px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui011"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui012"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui013"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui014"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui015"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(-2 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(-2 * var(--tile-height));
   }
   
   [data-tile="bui016"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui017"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui018"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui019"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui020"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui021"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui022"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui023"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui024"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(-3 * var(--tile-height));
   }
   
   [data-tile="bui025"] {
-    background: var(--tile-set-world) calc(0 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(0 * var(--tile-width) - 1px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui026"] {
-    background: var(--tile-set-world) calc(-1 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-1 * var(--tile-width) - 2px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui027"] {
-    background: var(--tile-set-world) calc(-2 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-2 * var(--tile-width) - 3px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui028"] {
-    background: var(--tile-set-world) calc(-3 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-3 * var(--tile-width) - 4px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui029"] {
-    background: var(--tile-set-world) calc(-4 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-4 * var(--tile-width) - 5px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui030"] {
-    background: var(--tile-set-world) calc(-5 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-5 * var(--tile-width) - 6px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui031"] {
-    background: var(--tile-set-world) calc(-6 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-6 * var(--tile-width) - 7px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui032"] {
-    background: var(--tile-set-world) calc(-7 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-7 * var(--tile-width) - 8px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui033"] {
-    background: var(--tile-set-world) calc(-8 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-8 * var(--tile-width) - 9px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui034"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui035"] {
-    background: var(--tile-set-world) calc(-10 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-10 * var(--tile-width) - 11px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui036"] {
-    background: var(--tile-set-world) calc(-11 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-11 * var(--tile-width) - 12px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui037"] {
-    background: var(--tile-set-world) calc(-12 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-12 * var(--tile-width) - 13px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui038"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui039"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui040"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(-4 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(-4 * var(--tile-height));
   }
   
   [data-tile="bui041"] {
-    background: var(--tile-set-world) calc(-9 * var(--tile-width)) calc(-3 * var(--tile-height));
+    background: var(--tile-set-world) calc(-9 * var(--tile-width) - 10px) calc(-3 * var(--tile-height));
   }
   
   /* Cliff Tiles */
   
   [data-tile="cli000"] {
-    background: var(--tile-set-world) calc(-13 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-13 * var(--tile-width) - 14px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="cli001"] {
-    background: var(--tile-set-world) calc(-14 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-14 * var(--tile-width) - 15px) calc(-5 * var(--tile-height));
   }
   
   [data-tile="cli002"] {
-    background: var(--tile-set-world) calc(-15 * var(--tile-width)) calc(-5 * var(--tile-height));
+    background: var(--tile-set-world) calc(-15 * var(--tile-width) - 16px) calc(-5 * var(--tile-height));
   }

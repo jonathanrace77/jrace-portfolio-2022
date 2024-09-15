@@ -13,7 +13,6 @@
 
 #playerAlertA {
     position: fixed;
-    position: fixed;
     top: calc(50% - (var(--tile-height)/2) - var(--tile-height));
     left: calc(50% - var(--tile-width)/2);
     width: var(--tile-width);
@@ -28,9 +27,11 @@
 
 #player {
     position: fixed;
-    position: fixed;
-    top: calc(50% - var(--tile-width)/2);
-    left: calc(50% - var(--tile-height)/2);
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: var(--tile-width);
     height: var(--tile-height);
     animation-timing-function: step-start;

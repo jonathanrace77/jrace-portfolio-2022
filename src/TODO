@@ -1,7 +1,11 @@
-Disable key inputs on modal launch (atm, it is causing the page to re-render on every type, slowing everything down)
+Mobile Chrome context menu can't be disabled atm.
 
-Holding a right / left direction then pressing up near the picture will sometimes not show the a trigger
+Mobile Chrome, pinch and drag can break layout, user-scalable=no in meta tag doesn't seem to help
 
-Check that all the touch events work properly on tablet / phone (especially touch and moving and releasing elsewhere)
+Warning message on falling block game
 
-Let falling block game use mobile on screen keys
+smaller signs for mobile? (or zoom out to see kanban?)
+
+
+
+Before refactoring: 735 lines (app.js component) 

@@ -12,8 +12,9 @@ export default function OtherModalContents() {
         <div id="other-container" className="skill-container">
             <div className="skills-text-col">
                 <div className="skills-text-section gsap-section-fade-up" ref={skillsTextSectionRef}>
+                    <h3>I also have experience with:</h3>
                     <p>
-                        I've also had fun working with the following technologies: Angular, Azure, Bootstrap, D3 JS, ESLint, Express, GIT, GSAP, Illustrator, JEST, jQuery, MongoDB, Next JS, Node JS, PHP, Redux, SQL, Svelte, Three JS, Vanta JS, Wordpress & Xamarin
+                        Angular, Azure, Bootstrap, D3 JS, ESLint, Express, GIT, GSAP, Illustrator, JEST, jQuery, MongoDB, Next JS, NgRx, Node JS, PHP, Redux, SQL, Svelte, Three JS, Vanta JS, Wordpress & Xamarin
                     </p>
                 </div>
             </div>

@@ -1,0 +1,79 @@
+/* Dark Mode Switch */
+
+:root {
+  --switchSize: 3px;
+}
+
+#darkModeSwitchContainer {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  margin-right: 25px;
+  height: 100%;
+}
+
+#darkModeSwitch {
+  position: relative;
+  width: calc(16 * var(--switchSize));
+  height: calc(8 * var(--switchSize));
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: calc(4 * var(--switchSize));
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#darkModeSwitchSun {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  opacity: 100%;
+  transition: 200ms;
+}
+
+#darkModeSwitchMoon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  opacity: 0;
+  transition: 200ms;
+}
+
+#darkModeSwitchCircle {
+  position: relative;
+  margin-top: calc(1 * var(--switchSize));
+  margin-left: calc(1 * var(--switchSize));
+  height: calc(6 * var(--switchSize));
+  width: calc(6 * var(--switchSize));
+  border-radius: 50%;
+  background: var(--primary-font-color);
+  transition: 200ms;
+  
+  div{
+    color:rgba(255, 255, 255, 1);
+  }
+}
+
+[data-dark-mode="true"]{
+  #darkModeSwitchCircle {
+    margin-left: calc(9 * var(--switchSize));
+
+    div{
+      color:rgba(68, 68, 68, 1);
+    }
+  }
+
+  #darkModeSwitchSun {
+    opacity: 0%;
+  }
+  
+  #darkModeSwitchMoon {
+    opacity: 100%;
+  }
+}

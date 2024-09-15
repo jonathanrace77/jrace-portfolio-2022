@@ -1,60 +1,56 @@
-// #region Import Region 
+// #region Import Region
 // Import React
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import useState from 'react-usestateref';
-
-// Import FontAwesome
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useCallback, useEffect, useRef } from "react";
+import useState from "react-usestateref";
 
 // Import Maps
-import { overWorldMap } from "../maps/overworldMap.js"
-import { skillsMap } from "../maps/skillsMap.js"
-import { portfolioMap } from "../maps/portfolioMap.js"
-import { homeMap } from "../maps/homeMap.js"
+import { overWorldMap } from "../maps/overworldMap.js";
+import { skillsMap } from "../maps/skillsMap.js";
+import { portfolioMap } from "../maps/portfolioMap.js";
+import { homeMap } from "../maps/homeMap.js";
 
 // Import Game Logic
-import tileMapEnum from "../scripts/TileMapEnum.js"
-import { directionEnum, collisionLevel, map } from "../scripts/Enums.js"
-import tileCollisionLevels from "../scripts/TileCollisionLevels.js"
+import CollisionLevel from "../enums/CollisionLevelEnum.js";
+import DirectionEnum from "../enums/DirectionEnum.js";
+import Map from "../enums/MapEnum.js";
+import tileCollisionLevels from "../scripts/TileCollisionLevels.js";
 
 // Import Modals
-import SensoModalContents from './modals/SensoModalContents.js'
-import HerbalCraftModalContents from './modals/HerbalCraftModalContents.js'
-import BenMarshallModalContents from './modals/BenMarshallModalContents.js'
-import FallingBlockGameModalContents from './modals/FallingBlockGameModalContents.js'
-import HtmlModalContents from './modals/HtmlModalContents.js'
-import CssModalContents from './modals/CssModalContents.js'
-import JavascriptModalContents from './modals/JavascriptModalContents.js'
-import ReactModalContents from './modals/ReactModalContents.js'
-import DotNetModalContents from './modals/DotNetModalContents.js'
-import CSharpModalContents from './modals/CSharpModalContents.js'
-import SqlModalContents from './modals/SqlModalContents.js'
-import OtherModalContents from './modals/OtherModalContents.js'
+import SensoModalContents from "./modals/SensoModalContents.js";
+import HerbalCraftModalContents from "./modals/HerbalCraftModalContents.js";
+import BenMarshallModalContents from "./modals/BenMarshallModalContents.js";
+import FallingBlockGameModalContents from "./modals/FallingBlockGameModalContents.js";
+import HtmlModalContents from "./modals/HtmlModalContents.js";
+import CssModalContents from "./modals/CssModalContents.js";
+import JavascriptModalContents from "./modals/JavascriptModalContents.js";
+import ReactModalContents from "./modals/ReactModalContents.js";
+import DotNetModalContents from "./modals/DotNetModalContents.js";
+import CSharpModalContents from "./modals/CSharpModalContents.js";
+import SqlModalContents from "./modals/SqlModalContents.js";
+import OtherModalContents from "./modals/OtherModalContents.js";
+import IntroMessageModalContents from "./modals/IntroMessageModalContents";
 
 // Import Styles
-import '../App.css';
+import "../App.css";
+
+import { gsap } from "gsap";
+
+// Import Components
+import OverlayActionButtons from "./OverlayActionButtons.js";
+import OverlayArrowButtons from "./OverlayArrowButtons.js";
+import Player from "./Player.js";
+import Skills from "./Skills.js";
+import RubberDuck from "./RubberDuck.js";
+import Windmill from "./Windmill.js";
+import WorldMap from "./WorldMap.js";
+
 // #endregion
 
-function App({ updateModal, showModal, hideModal }) {
-  var images = {
-    WindmillBlades: require("../img/WindmillBlades.png"),
-    SkillsHtml: require("../img/SkillsHtml.png"),
-    SkillsCss: require("../img/SkillsCss.png"),
-    SkillsJs: require("../img/SkillsJs.png"),
-    SkillsReact: require("../img/SkillsReact.png"),
-    SkillsDotNet: require("../img/SkillsDotNet.png"),
-    SkillsCSharp: require("../img/SkillsCSharp.png"),
-    SkillsSql: require("../img/SkillsSql.png"),
-    SkillsOther: require("../img/SkillsOther.png")
-  };
-
+function App({ updateModal, showModal, hideModal, modalIsVisible, modalContent, themeIsDarkMode, isTouchDevice }) {
   const _tileWidth = 64;
   const _tileHeight = 64;
 
-  const _allowedInputKeys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'];
+  const _allowedInputKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"];
   let _playerMoveTimeout = useRef(null);
   let _playerAnimationTimeout = useRef(null);
 
@@ -62,160 +58,62 @@ function App({ updateModal, showModal, hideModal }) {
   const [mapSizeByTile, setMapSizeByTile] = useState([37, 25]);
   const [mapPosition, setMapPosition] = useState([0, 0]);
 
-  const [keysPressed, setKeysPressed] = useState({ north: false, east: false, south: false, west: false });
+  const [keysPressed, setKeysPressed] = useState({
+    north: false,
+    east: false,
+    south: false,
+    west: false,
+  });
   const [playerPosition, setPlayerPosition, playerPositionRef] = useState([18, 12]);
-  const [playerDirection, setPlayerdirection] = useState(directionEnum.west);
+  const [playerDirection, setPlayerdirection, playerDirectionRef] = useState(DirectionEnum.west);
   const [playerDirectionToMove, setPlayerDirectionToMove, playerDirectionToMoveRef] = useState(null);
   const [playerIsMoving, setPlayerIsMoving, playerIsMovingRef] = useState(false);
   const [playerCanInteract, setPlayerCanInteract] = useState(false);
   const [showPlayerAnimationFrame, setShowPlayerAnimationFrame] = useState(false);
 
-  const [modalContents, setModalContents] = useState("");
+  const transitionRef = useRef();
 
-  const getKeyByValue = (object, value) => {
-    return Object.keys(object).find(key => object[key] === value);
-  }
-
-  const worldMapCreator = () => {
-    let worldMap = [];
-    let tileIteration = 0;
-
-    for (let row = 0; row < tileMap.length; row++) {
-      for (let col = 0; col < tileMap[0].length; col++) {
-        let tile = getKeyByValue(tileMapEnum, tileMap[row][col][0]);
-
-        worldMap[tileIteration] = <div className="map-tile" data-position={col + ',' + row} data-tile={tile} key={tileIteration}></div>;
-        tileIteration++;
-      }
-    }
-
-    return worldMap;
-  };
-
-  const windmillBladeCreator = () => {
-    let windmillBlades = <div id="windmill-blades"><img
-      alt="windmill blades"
-      src={images.WindmillBlades}
-    ></img></div>;
-
-    return windmillBlades;
-  }
-
-  const skillsCreator = () => {
-    let skillsContainer = <div id="skills-container">
-      <img
-        id="skills-html"
-        alt="skills - html"
-        src={images.SkillsHtml}
-      ></img>
-      <img
-        id="skills-css"
-        alt="skills - css"
-        src={images.SkillsCss}
-      ></img>
-      <img
-        id="skills-js"
-        alt="skills - javascript"
-        src={images.SkillsJs}
-      ></img>
-      <img
-        id="skills-react"
-        alt="skills - react"
-        src={images.SkillsReact}
-      ></img>
-      <img
-        id="skills-dot-net"
-        alt="skills - dot net"
-        src={images.SkillsDotNet}
-      ></img>
-      <img
-        id="skills-c-sharp"
-        alt="skills - c#"
-        src={images.SkillsCSharp}
-      ></img>
-      <img
-        id="skills-sql"
-        alt="skills - sql"
-        src={images.SkillsSql}
-      ></img>
-      <img
-        id="skills-other"
-        alt="skills - other"
-        src={images.SkillsOther}
-      ></img>
-    </div>;
-
-    return skillsContainer;
-  }
-
-  const playerCreator = () => {
-    let tileValue;
-
-    switch (playerDirection) {
-      case directionEnum.north:
-        tileValue = showPlayerAnimationFrame ? tileMapEnum.playerNorthMove : tileMapEnum.playerNorth;
-        break;
-      case directionEnum.east:
-        tileValue = showPlayerAnimationFrame ? tileMapEnum.playerEastMove : tileMapEnum.playerEast;
-        break;
-      case directionEnum.south:
-        tileValue = showPlayerAnimationFrame ? tileMapEnum.playerSouthMove : tileMapEnum.playerSouth;
-        break;
-      case directionEnum.west:
-        tileValue = showPlayerAnimationFrame ? tileMapEnum.playerWestMove : tileMapEnum.playerWest;
-        break;
-    }
-
-    let tile = getKeyByValue(tileMapEnum, tileValue);
-
-    let playerAlert = playerCanInteract ? <div id="playerAlert"><div id="playerAlertA"></div></div> : "";
-    return <>
-      {playerAlert}
-      <div id="player" data-tile={tile}></div>
-    </>;
-  }
+  const [modalContents, setModalContents, modalContentsRef] = useState("");
 
   const playerMove = (playerDirectionToMoveLocal = null) => {
-    if (!playerIsMovingRef.current)
-      return;
+    if (!playerIsMovingRef.current) return;
 
-    if (playerDirectionToMoveLocal === null)
-      playerDirectionToMoveLocal = playerDirectionToMoveRef.current;
+    if (playerDirectionToMoveLocal === null) playerDirectionToMoveLocal = playerDirectionToMoveRef.current;
 
     setShowPlayerAnimationFrame(true);
 
     switch (playerDirectionToMoveLocal) {
-      case directionEnum.east:
-        let playerCanMoveEast = tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1]][playerPositionRef.current[0] + 1]] !== collisionLevel.block;
-        if (!playerCanMoveEast)
-          break;
+      case DirectionEnum.east:
+        let playerCanMoveEast =
+          tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1]][playerPositionRef.current[0] + 1]] !== CollisionLevel.block;
+        if (!playerCanMoveEast) break;
 
-        setPlayerPosition(playerPosition => [playerPositionRef.current[0] + 1, playerPositionRef.current[1]]);
-        setMapPosition(mapPosition => [mapPosition[0] - _tileWidth, mapPosition[1]]);
+        setPlayerPosition((playerPosition) => [playerPositionRef.current[0] + 1, playerPositionRef.current[1]]);
+        setMapPosition((mapPosition) => [mapPosition[0] - _tileWidth, mapPosition[1]]);
         break;
-      case directionEnum.south:
-        let playerCanMoveSouth = tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1] + 1][playerPositionRef.current[0]]] !== collisionLevel.block;
-        if (!playerCanMoveSouth)
-          break;
+      case DirectionEnum.south:
+        let playerCanMoveSouth =
+          tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1] + 1][playerPositionRef.current[0]]] !== CollisionLevel.block;
+        if (!playerCanMoveSouth) break;
 
-        setPlayerPosition(playerPosition => [playerPositionRef.current[0], playerPositionRef.current[1] + 1]);
-        setMapPosition(mapPosition => [mapPosition[0], mapPosition[1] - _tileHeight]);
+        setPlayerPosition((playerPosition) => [playerPositionRef.current[0], playerPositionRef.current[1] + 1]);
+        setMapPosition((mapPosition) => [mapPosition[0], mapPosition[1] - _tileHeight]);
         break;
-      case directionEnum.west:
-        let playerCanMoveWest = tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1]][playerPositionRef.current[0] - 1]] !== collisionLevel.block;
-        if (!playerCanMoveWest)
-          break;
+      case DirectionEnum.west:
+        let playerCanMoveWest =
+          tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1]][playerPositionRef.current[0] - 1]] !== CollisionLevel.block;
+        if (!playerCanMoveWest) break;
 
-        setPlayerPosition(playerPosition => [playerPositionRef.current[0] - 1, playerPositionRef.current[1]]);
-        setMapPosition(mapPosition => [mapPosition[0] + _tileWidth, mapPosition[1]]);
+        setPlayerPosition((playerPosition) => [playerPositionRef.current[0] - 1, playerPositionRef.current[1]]);
+        setMapPosition((mapPosition) => [mapPosition[0] + _tileWidth, mapPosition[1]]);
         break;
-      case directionEnum.north:
-        let playerCanMoveNorth = tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1] - 1][playerPositionRef.current[0]]] !== collisionLevel.block;
-        if (!playerCanMoveNorth)
-          break;
+      case DirectionEnum.north:
+        let playerCanMoveNorth =
+          tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1] - 1][playerPositionRef.current[0]]] !== CollisionLevel.block;
+        if (!playerCanMoveNorth) break;
 
-        setPlayerPosition(playerPosition => [playerPositionRef.current[0], playerPositionRef.current[1] - 1]);
-        setMapPosition(mapPosition => [mapPosition[0], mapPosition[1] + _tileHeight]);
+        setPlayerPosition((playerPosition) => [playerPositionRef.current[0], playerPositionRef.current[1] - 1]);
+        setMapPosition((mapPosition) => [mapPosition[0], mapPosition[1] + _tileHeight]);
         break;
     }
 
@@ -229,17 +127,14 @@ function App({ updateModal, showModal, hideModal }) {
     }, 50);
 
     _playerMoveTimeout.current = setTimeout(() => {
-      if (playerIsMovingRef.current)
-        playerMove(null);
+      if (playerIsMovingRef.current) playerMove(null);
     }, 100);
-
   };
 
   const warpTileLand = (tile) => {
     const warpTiles = [608, 726, 829, 929];
 
-    if (!warpTiles.includes(tile))
-      return
+    if (!warpTiles.includes(tile)) return;
 
     const playerPosition = playerPositionRef.current;
     const skillsEntrance = [18, 7].toString();
@@ -251,33 +146,33 @@ function App({ updateModal, showModal, hideModal }) {
 
     switch (playerPosition.toString()) {
       case skillsEntrance:
-        loadMap(map.skills);
+        loadMap(Map.skills);
         break;
       case portfolioEntrance:
-        loadMap(map.portfolio);
+        loadMap(Map.portfolio);
         break;
       case homeEntrance:
-        loadMap(map.home);
-        break
+        loadMap(Map.home);
+        break;
       case skillsExit:
-        loadMap(map.worldFromSkills);
+        loadMap(Map.worldFromSkills);
         break;
       case portfolioExit:
-        loadMap(map.worldFromPortfolio);
+        loadMap(Map.worldFromPortfolio);
         break;
       case homeExit:
-        loadMap(map.worldFromHome);
+        loadMap(Map.worldFromHome);
         break;
     }
-  }
+  };
 
   const interactTileLand = (tile) => {
     const interactTiles = [714, 827, 920];
 
-    if (!interactTiles.includes(tile))
-      return
-
     setPlayerCanInteract(false);
+
+    if (!interactTiles.includes(tile)) return;
+
     switch (tile) {
       case 714:
         handleSkillsInteract();
@@ -287,9 +182,9 @@ function App({ updateModal, showModal, hideModal }) {
         break;
       case 920:
         handleHomeInteract();
-        break
+        break;
     }
-  }
+  };
 
   const handleSkillsInteract = () => {
     const playerPosition = playerPositionRef.current;
@@ -302,46 +197,49 @@ function App({ updateModal, showModal, hideModal }) {
     const sqlInteractTiles = [[8, 11].toString(), [9, 11].toString()];
     const otherInteractTiles = [[11, 11].toString(), [12, 11].toString()];
 
-    if (htmlInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (htmlInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "HTML", body: <HtmlModalContents /> });
     }
 
-    if (cssInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (cssInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "CSS", body: <CssModalContents /> });
     }
 
-    if (javascriptInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (javascriptInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
-      setModalContents({ head: "JAVASCRIPT", body: <JavascriptModalContents /> });
+      setModalContents({
+        head: "JAVASCRIPT",
+        body: <JavascriptModalContents />,
+      });
     }
 
-    if (reactInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (reactInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "REACT", body: <ReactModalContents /> });
     }
 
-    if (dotNetInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (dotNetInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: ".NET", body: <DotNetModalContents /> });
     }
 
-    if (cSharpInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (cSharpInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "C#", body: <CSharpModalContents /> });
     }
 
-    if (sqlInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (sqlInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "SQL", body: <SqlModalContents /> });
     }
 
-    if (otherInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (otherInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "OTHER", body: <OtherModalContents /> });
     }
-  }
+  };
 
   const handlePortfolioInteract = () => {
     const playerPosition = playerPositionRef.current;
@@ -349,243 +247,310 @@ function App({ updateModal, showModal, hideModal }) {
     const herbalCraftInteractTiles = [[7, 4].toString(), [8, 4].toString(), [9, 4].toString(), [10, 4].toString()];
     const benMarshallInteractTiles = [[12, 4].toString(), [13, 4].toString()];
 
-    if (sensoInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (sensoInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
       setModalContents({ head: "SENSO", body: <SensoModalContents /> });
     }
 
-    if (herbalCraftInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (herbalCraftInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
-      setModalContents({ head: "HERBAL CRAFT", body: <HerbalCraftModalContents /> });
+      setModalContents({
+        head: "HERBAL CRAFT",
+        body: <HerbalCraftModalContents />,
+      });
     }
 
-    if (benMarshallInteractTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (benMarshallInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
-      setModalContents({ head: "BEN MARSHALL PRODUCTION", body: <BenMarshallModalContents /> });
+      setModalContents({
+        head: "BEN MARSHALL PRODUCTION",
+        body: <BenMarshallModalContents />,
+      });
     }
-  }
+  };
 
   const handleHomeInteract = () => {
     const playerPosition = playerPositionRef.current;
     const videoGameTiles = [[3, 4].toString(), [4, 4].toString(), [5, 4].toString()];
 
-    if (videoGameTiles.includes(playerPosition.toString()) && playerDirection === directionEnum.north) {
+    if (videoGameTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
       setPlayerCanInteract(true);
-      setModalContents({ head: '"Falling Block Game"', body: <FallingBlockGameModalContents /> });
+      setModalContents({
+        head: '"Falling Block Game"',
+        body: <FallingBlockGameModalContents />,
+      });
     }
-  }
+  };
 
   const loadMap = (mapToLoad) => {
+    triggerTransitionAnimation();
+
     switch (mapToLoad) {
-      case map.worldFromSkills:
+      case Map.worldFromSkills:
         setMapSizeByTile([37, 25]);
         setTileMap(overWorldMap);
         setPlayerPosition([18, 8]);
         setMapPosition([_tileWidth * 0, _tileHeight * 4]);
-        document.body.style.backgroundColor = "var(--primary-accent-color)";
+        setPlayerInside(false);
         break;
-      case map.skills:
+      case Map.skills:
         setMapSizeByTile([15, 15]);
         setTileMap(skillsMap);
         setPlayerPosition([2, 12]);
         setMapPosition([_tileWidth * 5, _tileHeight * -5]);
-        document.body.style.backgroundColor = "black";
+        setPlayerInside(true);
         break;
-      case map.worldFromPortfolio:
+      case Map.worldFromPortfolio:
         setMapSizeByTile([37, 25]);
         setTileMap(overWorldMap);
         setPlayerPosition([23, 15]);
         setMapPosition([_tileWidth * -5, _tileHeight * -3]);
-        document.body.style.backgroundColor = "var(--primary-accent-color)";
+        setPlayerInside(false);
         break;
-      case map.portfolio:
+      case Map.portfolio:
         setMapSizeByTile([17, 7]);
         setTileMap(portfolioMap);
         setPlayerPosition([2, 5]);
         setMapPosition([_tileWidth * 6, _tileHeight * -2]);
-        document.body.style.backgroundColor = "black";
+        setPlayerInside(true);
         break;
-      case map.worldFromHome:
+      case Map.worldFromHome:
         setMapSizeByTile([37, 25]);
         setTileMap(overWorldMap);
         setPlayerPosition([7, 12]);
         setMapPosition([_tileWidth * 11, _tileHeight * 0]);
-        document.body.style.backgroundColor = "var(--primary-accent-color)";
+        setPlayerInside(false);
         break;
-      case map.home:
+      case Map.home:
         setMapSizeByTile([11, 9]);
         setTileMap(homeMap);
         setPlayerPosition([2, 7]);
         setMapPosition([_tileWidth * 3, _tileHeight * -3]);
-        document.body.style.backgroundColor = "black";
+        setPlayerInside(true);
         break;
     }
-  }
+  };
 
-  const handleKeyPress = useCallback((event) => {
-    let keyPressed = event.key;
+  const setPlayerInside = (playerIsInside) => {
+    var body = document.getElementsByTagName("body")[0];
+    body.setAttribute("data-player-inside", playerIsInside);
+  };
 
-    // User hovers over a button but isn't clicking
-    if (event.type !== 'keydown' && event.buttons < 1)
-      return
+  const triggerTransitionAnimation = () => {
+    gsap.fromTo(
+      [transitionRef.current],
+      {
+        opacity: 1,
+        duration: 0,
+      },
+      {
+        opacity: 0,
+        duration: 1.0,
+        ease: "steps(8)",
+      }
+    );
+  };
 
-    // User is clicking a button
-    if (event.type !== 'keydown')
-      keyPressed = event.target.dataset.overlayButton;
+  const handleKeyPress = useCallback(
+    (event) => {
+      let keyPressed = event.key;
 
-    if (keyPressed === 'a') {
-      handleAButtonPress();
-    }
+      // Avoid duplicate triggers from touch devices that also register mouse events
+      if (event.type === "mousedown" && isTouchDevice()) return;
 
-    if (keyPressed === 'x') {
-      handleXButtonPress();
-    }
+      // User hovers over a button but isn't clicking
+      if (event.type !== "keydown" && event.buttons < 1) return;
 
-    if (!_allowedInputKeys.includes(keyPressed))
-      return;
+      // User is clicking a button
+      if (event.type !== "keydown") keyPressed = event.target.closest(`.overlay-button`).dataset.overlayButton;
 
-    let keysPressedUpdate = keysPressed;
-    let callPlayerMove = Object.values(keysPressed).every((key) => key === false);
-    let playerDirectionToMoveLocal;
+      // Handle user inputting 'a' or 'x' in contact form
+      let contactModalLoaded = modalContent.current.head === "Contact" && modalIsVisible.current;
 
-    switch (keyPressed) {
-      case "ArrowRight":
-        setPlayerdirection(directionEnum.east);
-        playerDirectionToMoveLocal = directionEnum.east;
-        keysPressedUpdate.east = true;
-        break;
-      case "ArrowDown":
-        setPlayerdirection(directionEnum.south);
-        playerDirectionToMoveLocal = directionEnum.south;
-        keysPressedUpdate.south = true;
-        break;
-      case "ArrowLeft":
-        setPlayerdirection(directionEnum.west);
-        playerDirectionToMoveLocal = directionEnum.west;
-        keysPressedUpdate.west = true;
-        break;
-      case "ArrowUp":
-        setPlayerdirection(directionEnum.north);
-        playerDirectionToMoveLocal = directionEnum.north;
-        keysPressedUpdate.north = true;
-        break;
-    }
+      if (keyPressed === "a" && !contactModalLoaded) {
+        handleAButtonPress();
+      }
 
-    setPlayerDirectionToMove(playerDirectionToMoveLocal);
+      if (keyPressed === "x" && !contactModalLoaded) {
+        handleXButtonPress();
+      }
 
-    if (callPlayerMove) {
-      setPlayerIsMoving(true);
-    }
+      if (modalIsVisible.current) return;
 
-    setKeysPressed(keysPressedUpdate);
-  }, [mapPosition, playerDirectionToMove, playerIsMoving]);
+      if (!_allowedInputKeys.includes(keyPressed)) return;
+
+      let keysPressedUpdate = keysPressed;
+      let callPlayerMove = Object.values(keysPressed).every((key) => key === false);
+      let playerDirectionToMoveLocal;
+
+      switch (keyPressed) {
+        case "ArrowRight":
+          setPlayerdirection(DirectionEnum.east);
+          playerDirectionToMoveLocal = DirectionEnum.east;
+          keysPressedUpdate.east = true;
+          break;
+        case "ArrowDown":
+          setPlayerdirection(DirectionEnum.south);
+          playerDirectionToMoveLocal = DirectionEnum.south;
+          keysPressedUpdate.south = true;
+          break;
+        case "ArrowLeft":
+          setPlayerdirection(DirectionEnum.west);
+          playerDirectionToMoveLocal = DirectionEnum.west;
+          keysPressedUpdate.west = true;
+          break;
+        case "ArrowUp":
+          setPlayerdirection(DirectionEnum.north);
+          playerDirectionToMoveLocal = DirectionEnum.north;
+          keysPressedUpdate.north = true;
+          break;
+      }
+
+      setPlayerDirectionToMove(playerDirectionToMoveLocal);
+
+      if (callPlayerMove) {
+        setPlayerIsMoving(true);
+      }
+
+      setKeysPressed(keysPressedUpdate);
+    },
+    [mapPosition, playerDirectionToMove, playerIsMoving]
+  );
 
   const handleAButtonPress = () => {
-    if (!playerCanInteract)
-      return
+    if (!playerCanInteract) return;
 
     updateModal(modalContents);
     showModal();
-  }
+  };
 
   const handleXButtonPress = () => {
     hideModal();
-  }
+  };
 
-  const handleKeyUp = useCallback((event) => {
-    let keyReleased = event.key;
+  const handleKeyUp = useCallback(
+    (event) => {
+      let keyReleased = event.key;
 
-    if (event.type !== 'keyup')
-      keyReleased = event.target.dataset.overlayButton;
+      if (event.type !== "keyup") keyReleased = event.target.dataset.overlayButton;
 
-    let keysPressedUpdate = keysPressed;
-    switch (keyReleased) {
-      case "ArrowRight":
-        keysPressedUpdate.east = false;
-        break;
-      case "ArrowDown":
-        keysPressedUpdate.south = false;
-        break;
-      case "ArrowLeft":
-        keysPressedUpdate.west = false;
-        break;
-      case "ArrowUp":
-        keysPressedUpdate.north = false;
-        break;
-    }
+      let keysPressedUpdate = keysPressed;
+      switch (keyReleased) {
+        case "ArrowRight":
+          keysPressedUpdate.east = false;
+          break;
+        case "ArrowDown":
+          keysPressedUpdate.south = false;
+          break;
+        case "ArrowLeft":
+          keysPressedUpdate.west = false;
+          break;
+        case "ArrowUp":
+          keysPressedUpdate.north = false;
+          break;
+      }
 
-    if (event.type !== 'keyup') {
-      keysPressedUpdate['north'] = false;
-      keysPressedUpdate['east'] = false;
-      keysPressedUpdate['south'] = false;
-      keysPressedUpdate['west'] = false;
-    }
+      if (event.type !== "keyup") {
+        keysPressedUpdate["north"] = false;
+        keysPressedUpdate["east"] = false;
+        keysPressedUpdate["south"] = false;
+        keysPressedUpdate["west"] = false;
+      }
 
-    setKeysPressed(keysPressedUpdate);
+      setKeysPressed(keysPressedUpdate);
 
-    var filtered = Object.keys(keysPressedUpdate).filter(function (key) {
-      return keysPressedUpdate[key]
-    });
+      var filtered = Object.keys(keysPressedUpdate).filter(function (key) {
+        return keysPressedUpdate[key];
+      });
 
-    setPlayerDirectionToMove(null);
-    setPlayerDirectionToMove(directionEnum[filtered]);
+      setPlayerDirectionToMove(null);
+      setPlayerDirectionToMove(DirectionEnum[filtered]);
 
-    const playerHasStopped = filtered.length < 1;
-    setPlayerIsMoving(!playerHasStopped);
+      const playerHasStopped = filtered.length < 1;
+      setPlayerIsMoving(!playerHasStopped);
 
-    if (directionEnum[filtered] !== undefined) {
-      setPlayerdirection(directionEnum[filtered]);
-    } else {
-      clearTimeout(_playerMoveTimeout);
-    }
-  }, [mapPosition]);
+      if (DirectionEnum[filtered] !== undefined) {
+        setPlayerdirection(DirectionEnum[filtered]);
+      } else {
+        clearTimeout(_playerMoveTimeout);
+      }
+    },
+    [mapPosition]
+  );
+
+  const handleDocumentMouseDown = useCallback((event) => {
+    if (modalIsVisible && event.target.closest("#modal") === null) hideModal();
+  }, []);
+
+  const introMessage = () => {
+    const introMessageSeen = localStorage.getItem("introMessageSeen");
+
+    if (introMessageSeen !== null) return;
+
+    setTimeout(() => {
+      setModalContents({
+        head: "Welcome!",
+        body: <IntroMessageModalContents />,
+      });
+      updateModal(modalContentsRef.current);
+      showModal();
+
+      localStorage.setItem("introMessageSeen", "true");
+    }, 200);
+  };
 
   useEffect(() => {
-    if (_playerMoveTimeout !== undefined)
-      clearTimeout(_playerMoveTimeout.current);
+    if (_playerMoveTimeout !== undefined) clearTimeout(_playerMoveTimeout.current);
 
-    if (playerIsMoving)
-      playerMove(null);
-
-  }, [playerIsMoving])
+    if (playerIsMoving) playerMove(null);
+  }, [playerIsMoving]);
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("keyup", handleKeyUp);
+    document.addEventListener("mousedown", handleDocumentMouseDown);
+    document.addEventListener("touchstart", handleDocumentMouseDown);
+
+    document.body.classList.remove("body-intro");
+    introMessage();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-      document.removeEventListener('keyup', handleKeyUp);
+      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("keyup", handleKeyUp);
+      document.removeEventListener("mousedown", handleDocumentMouseDown);
+      document.removeEventListener("touchstart", handleDocumentMouseDown);
     };
   }, [handleKeyPress, handleKeyUp]);
+
+  useEffect(() => {
+    triggerTransitionAnimation();
+  }, [themeIsDarkMode]);
 
   let worldMapStyle = {
     top: `calc(50% + ${mapPosition[1]}px - ((${Math.round(mapSizeByTile[1]) / 2} * ${_tileHeight}px)))`,
     left: `calc(50% + ${mapPosition[0]}px - ((${Math.round(mapSizeByTile[0]) / 2} * ${_tileWidth}px)))`,
-    width: `calc(${_tileWidth} * ${mapSizeByTile[0]}px)`
-  }
+    width: `calc((${_tileWidth} / 16) * ${mapSizeByTile[0]}em)`,
+  };
 
   return (
     <>
       <div className="overlay-buttons-container">
-        <div className="overlay-buttons-action">
-          <div className="overlay-button overlay-buttons-a" onTouchStart={handleAButtonPress} onClick={handleAButtonPress}><FontAwesomeIcon icon={['fas', 'a']} className="overlay-button-icon text-no-select" /></div>
-          <div className="overlay-button overlay-buttons-x" onTouchStart={handleXButtonPress} onClick={handleXButtonPress}><FontAwesomeIcon icon={['fas', 'x']} className="overlay-button-icon text-no-select" /></div>
-        </div>
-        <div className="overlay-buttons-arrows">
-          <div className="overlay-button overlay-buttons-up" data-overlay-button="ArrowUp" onTouchStart={handleKeyPress} onTouchEnd={handleKeyUp} onMouseDown={handleKeyPress} onMouseOver={handleKeyPress} onMouseLeave={handleKeyUp} onMouseUp={handleKeyUp}><FontAwesomeIcon icon={['fas', 'arrow-up']} className="overlay-button-icon text-no-select" data-overlay-button="ArrowUp" /></div>
-          <div className="overlay-button overlay-buttons-right" data-overlay-button="ArrowRight" onTouchStart={handleKeyPress} onTouchEnd={handleKeyUp} onMouseDown={handleKeyPress} onMouseOver={handleKeyPress} onMouseLeave={handleKeyUp} onMouseUp={handleKeyUp}><FontAwesomeIcon icon={['fas', 'arrow-right']} className="overlay-button-icon text-no-select" data-overlay-button="ArrowRight" /></div>
-          <div className="overlay-button overlay-buttons-down" data-overlay-button="ArrowDown" onTouchStart={handleKeyPress} onTouchEnd={handleKeyUp} onMouseDown={handleKeyPress} onMouseOver={handleKeyPress} onMouseLeave={handleKeyUp} onMouseUp={handleKeyUp}><FontAwesomeIcon icon={['fas', 'arrow-down']} className="overlay-button-icon text-no-select" data-overlay-button="ArrowDown" /></div>
-          <div className="overlay-button overlay-buttons-left" data-overlay-button="ArrowLeft" onTouchStart={handleKeyPress} onTouchEnd={handleKeyUp} onMouseDown={handleKeyPress} onMouseOver={handleKeyPress} onMouseLeave={handleKeyUp} onMouseUp={handleKeyUp}><FontAwesomeIcon icon={['fas', 'arrow-left']} className="overlay-button-icon text-no-select" data-overlay-button="ArrowLeft" /></div>
-        </div>
+        <OverlayActionButtons handleAButtonPress={handleAButtonPress} handleXButtonPress={handleXButtonPress}></OverlayActionButtons>
+        <OverlayArrowButtons handleKeyPress={handleKeyPress} handleKeyUp={handleKeyUp}></OverlayArrowButtons>
       </div>
-      <div className="App crt">
-        <div id="world-map-container" style={worldMapStyle}>
-          {useMemo(() => worldMapCreator(tileMap), [tileMap])}
-          {tileMap === overWorldMap && windmillBladeCreator()}
-          {tileMap === skillsMap && skillsCreator()}
-          {playerCreator()}
+      <div id="appContainer" className="crt">
+        <div className="App">
+          <div id="world-map-outer">
+            <div id="world-map-container" style={worldMapStyle}>
+              {<WorldMap tileMap={tileMap}></WorldMap>}
+              {tileMap === overWorldMap && <Windmill themeIsDarkMode={themeIsDarkMode}></Windmill>}
+              {tileMap === overWorldMap && <RubberDuck themeIsDarkMode={themeIsDarkMode}></RubberDuck>}
+              {tileMap === skillsMap && <Skills></Skills>}
+              <Player playerDirection={playerDirection} showPlayerAnimationFrame={showPlayerAnimationFrame} playerCanInteract={playerCanInteract}></Player>
+            </div>
+          </div>
         </div>
+        <div id="transitionScreen" className="transition" ref={transitionRef}></div>
       </div>
     </>
   );

@@ -25,7 +25,7 @@
     height: 18px;
     border-radius: 3px;
     border-style: none;
-    background: rgba(255, 255, 255, 1);
+    background: var(--modal-panel-background-color);
     border-width: 1px;
     font-size: 16px;
     font-family: "Raleway", sans-serif;
@@ -40,17 +40,18 @@
 
 #message {
     vertical-align: top;
-    padding: 10px 10px 130px;
+    padding: 10px 10px 86px;
     margin: 5px;
-    height: 10px;
+    height: 18px;
     border-radius: 3px;
-    background: rgba(255, 255, 255, 1);
+    background: var(--modal-panel-background-color);
     border-width: 1px;
+    resize: none;
 }
 
 .contact-form-text-area {
     width: 500px;
-    max-width: 80vw;
+    max-width: 70vw;
 }
 
 #submit-button {

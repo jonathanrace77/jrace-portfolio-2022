@@ -13,7 +13,7 @@ export default function DotNetModalContents() {
             <div className="skills-text-col">
                 <div className="skills-text-section gsap-section-fade-up" ref={skillsTextSectionRef}>
                     <p>
-                        My introducion to .Net was initially quite overwhelming but I've really grown to love just how versatile and powerful it can be. It seems that it can be used to create anything you can think of and now I'm struggling to imagine my full-stack workflow without it. I've been using .Net commercially since 2020.
+                        .NET is an incredibly versatile platform to work with. I've used it for desktop applications, web services (using ASP.NET) and even mobile applications (using Xamarin), I've worked with .NET framework and .NET Core commerically since 2020.
                     </p>
                 </div>
             </div>
