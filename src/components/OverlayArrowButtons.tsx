@@ -1,7 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ArrowButton } from "../interfaces/arrow-button.interface";
 
-export default function OverlayArrowButtons({ handleKeyPress, handleKeyUp }) {
-  const arrowButtons = [
+export default function OverlayArrowButtons({
+  handleKeyPress,
+  handleKeyUp,
+}: {
+  handleKeyPress: (event: Event | React.MouseEvent | React.KeyboardEvent) => void;
+  handleKeyUp: (event: Event | React.MouseEvent | React.KeyboardEvent) => void;
+}) {
+  const arrowButtons: ArrowButton[] = [
     { className: "overlay-buttons-up", faIcon: "arrow-up", data: "ArrowUp" },
     { className: "overlay-buttons-right", faIcon: "arrow-right", data: "ArrowRight" },
     { className: "overlay-buttons-down", faIcon: "arrow-down", data: "ArrowDown" },
@@ -18,8 +25,8 @@ export default function OverlayArrowButtons({ handleKeyPress, handleKeyUp }) {
             className={buttonClassName}
             data-overlay-button={a.data}
             onContextMenu={(e) => e.preventDefault()}
-            onTouchStart={handleKeyPress}
-            onTouchEnd={handleKeyUp}
+            onTouchStart={handleKeyPress as () => void}
+            onTouchEnd={handleKeyUp as () => void}
             onMouseDown={handleKeyPress}
             onMouseOver={handleKeyPress}
             onMouseLeave={handleKeyUp}

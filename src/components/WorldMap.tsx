@@ -3,8 +3,8 @@ import TileMapEnum from "../enums/TileMapEnum";
 import { overWorldMap } from "../maps/overworldMap";
 import { useMemo } from "react";
 
-export default function WorldMap({ tileMap }) {
-  const getWorldMap = () => {
+export default function WorldMap({ tileMap }: { tileMap: number[][][] }): React.JSX.Element {
+  const getWorldMap = (tileMap: number[][][]): React.JSX.Element => {
     let worldMap = [];
     let tileIteration = 0;
 
@@ -21,7 +21,7 @@ export default function WorldMap({ tileMap }) {
 
     if (tileMap === overWorldMap) document.body.style.backgroundColor = "var(--body-background)";
 
-    return worldMap;
+    return <>{worldMap}</>;
   };
 
   return useMemo(() => getWorldMap(tileMap), [tileMap]);

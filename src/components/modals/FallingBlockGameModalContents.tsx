@@ -3,7 +3,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
-import FallingBlockGame from '../../components/falling_block_game/FallingBlockGame.js'
+import FallingBlockGame from '../falling_block_game/FallingBlockGame.js'
 
 library.add(fas, fab);
 

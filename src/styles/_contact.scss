@@ -1,26 +1,31 @@
 /* Contact */
 
-#contact-text p {
+#contact-modal-text {
+    display: grid;
+    justify-content: center;
+  }
+  
+  #contact-modal-text p {
     margin: 0 30px 30px;
     width: auto;
-}
-
-#contact-form {
+  }
+  
+  #contact-form {
     display: -ms-grid;
     display: grid;
     text-align: center;
-}
-
-#name {
+  }
+  
+  #name {
     margin: 0 5px 5px;
-}
-
-#email {
+  }
+  
+  #email {
     margin: 5px;
-}
-
-#email,
-#name {
+  }
+  
+  #email,
+  #name {
     padding: 10px;
     height: 18px;
     border-radius: 3px;
@@ -29,16 +34,16 @@
     border-width: 1px;
     font-size: 16px;
     font-family: "Raleway", sans-serif;
-}
-
-#message,
-#submit-button {
+  }
+  
+  #message,
+  #submit-button {
     border-style: none;
     font-size: 16px;
     font-family: "Raleway", sans-serif;
-}
-
-#message {
+  }
+  
+  #message {
     vertical-align: top;
     padding: 10px 10px 86px;
     margin: 5px;
@@ -47,24 +52,25 @@
     background: var(--modal-panel-background-color);
     border-width: 1px;
     resize: none;
-}
-
-.contact-form-text-area {
+  }
+  
+  .contact-form-text-area {
     width: 500px;
     max-width: 70vw;
-}
-
-#submit-button {
+  }
+  
+  #submit-button {
     background: #dc416a;
     color: #fff;
     width: 100px;
     height: 38px;
     margin: 30px 5px 30px;
     cursor: pointer;
-}
-
-#submit-button:hover {
-    transition: .3s;
+  }
+  
+  #submit-button:hover {
+    transition: 0.3s;
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
+  }
+  

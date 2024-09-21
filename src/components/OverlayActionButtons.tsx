@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function OverlayActionButtons({ handleAButtonPress, handleXButtonPress }) {
+export default function OverlayActionButtons({ handleAButtonPress, handleXButtonPress }: { handleAButtonPress: () => void; handleXButtonPress: () => void }) {
   return (
     <div className="overlay-buttons-action">
       <div

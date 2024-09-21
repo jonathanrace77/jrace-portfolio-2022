@@ -1,4 +1,4 @@
-export default function Windmill({ themeIsDarkMode }) {
+export default function Windmill({ themeIsDarkMode }: { themeIsDarkMode: boolean }) {
   const images = {
     WindmillBlades: require("../img/WindmillBlades.png"),
     WindmillBladesDark: require("../img/WindmillBladesDark.png"),
