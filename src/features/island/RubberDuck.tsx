@@ -1,7 +1,7 @@
 export default function RubberDuck({ themeIsDarkMode }: { themeIsDarkMode: boolean }) {
   const images = {
-    RubberDuck: require("../img/RubberDuck.png"),
-    RubberDuckDark: require("../img/RubberDuckDark.png"),
+    RubberDuck: require("../../img/RubberDuck.png"),
+    RubberDuckDark: require("../../img/RubberDuckDark.png"),
   };
 
   return (

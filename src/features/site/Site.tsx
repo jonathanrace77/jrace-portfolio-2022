@@ -3,11 +3,11 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import useState from "react-usestateref";
 
-import Modal from "./modals/Modal";
+import Modal from "../modal/Modal";
 import Header from "./Header";
 import App from "./App";
 import Footer from "./Footer";
-import { ModalContent } from "../interfaces/modal-content.interface";
+import { ModalContent } from "../../interfaces/modal-content.interface";
 import React from "react";
 
 library.add(fas, fab);

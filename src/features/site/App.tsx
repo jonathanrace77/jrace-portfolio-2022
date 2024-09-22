@@ -4,46 +4,50 @@ import React, { MutableRefObject, RefObject, useCallback, useEffect, useRef } fr
 import useState from "react-usestateref";
 
 // Import Maps
-import { overWorldMap } from "../maps/overworldMap.js";
-import { skillsMap } from "../maps/skillsMap.js";
-import { portfolioMap } from "../maps/portfolioMap.js";
-import { homeMap } from "../maps/homeMap.js";
+import { overWorldMap } from "../../maps/overworldMap.js";
+import { skillsMap } from "../../maps/skillsMap.js";
+import { portfolioMap } from "../../maps/portfolioMap.js";
+import { homeMap } from "../../maps/homeMap.js";
 
 // Import Game Logic
-import CollisionLevel from "../enums/CollisionLevelEnum.js";
-import DirectionEnum from "../enums/DirectionEnum.js";
-import Map from "../enums/MapEnum.js";
-import tileCollisionLevels from "../scripts/TileCollisionLevels.js";
+import CollisionLevel from "../../enums/CollisionLevelEnum.js";
+import DirectionEnum from "../../enums/DirectionEnum.js";
+import Map from "../../enums/MapEnum.js";
+import tileCollisionLevels from "../../scripts/TileCollisionLevels.js";
 
 // Import Modals
-import SensoModalContents from "./modals/SensoModalContents";
-import HerbalCraftModalContents from "./modals/HerbalCraftModalContents";
-import BenMarshallModalContents from "./modals/BenMarshallModalContents";
-import FallingBlockGameModalContents from "./modals/FallingBlockGameModalContents";
-import HtmlModalContents from "./modals/HtmlModalContents";
-import CssModalContents from "./modals/CssModalContents";
-import JavascriptModalContents from "./modals/JavascriptModalContents";
-import ReactModalContents from "./modals/ReactModalContents";
-import DotNetModalContents from "./modals/DotNetModalContents";
-import CSharpModalContents from "./modals/CSharpModalContents";
-import SqlModalContents from "./modals/SqlModalContents";
-import OtherModalContents from "./modals/OtherModalContents";
-import IntroMessageModalContents from "./modals/IntroMessageModalContents";
+import SensoModalContents from "../modal/SensoModalContents";
+import HerbalCraftModalContents from "../modal/HerbalCraftModalContents";
+import BenMarshallModalContents from "../modal/BenMarshallModalContents";
+import FallingBlockGameModalContents from "../modal/FallingBlockGameModalContents";
+import HtmlModalContents from "../modal/HtmlModalContents";
+import CssModalContents from "../modal/CssModalContents";
+import JavascriptModalContents from "../modal/JavascriptModalContents";
+import ReactModalContents from "../modal/ReactModalContents";
+import DotNetModalContents from "../modal/DotNetModalContents";
+import CSharpModalContents from "../modal/CSharpModalContents";
+import SqlModalContents from "../modal/SqlModalContents";
+import OtherModalContents from "../modal/OtherModalContents";
+import IntroMessageModalContents from "../modal/IntroMessageModalContents";
 
 // Import Styles
-import "../App.css";
+import "./App.css";
 
 import { gsap } from "gsap";
 
 // Import Components
-import OverlayActionButtons from "./OverlayActionButtons";
-import OverlayArrowButtons from "./OverlayArrowButtons";
-import Player from "./Player";
-import Skills from "./Skills";
-import RubberDuck from "./RubberDuck";
-import Windmill from "./Windmill";
-import WorldMap from "./WorldMap";
-import { ModalContent } from "../interfaces/modal-content.interface.js";
+import OverlayActionButtons from "../island/OverlayActionButtons";
+import OverlayArrowButtons from "../island/OverlayArrowButtons";
+import Player from "../island/Player";
+import Skills from "../island/Skills";
+import RubberDuck from "../island/RubberDuck";
+import Windmill from "../island/Windmill";
+import WorldMap from "../island/WorldMap";
+import { ModalContent } from "../../interfaces/modal-content.interface.js";
+
+// Store
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setPlayerIsMoving } from "../island/playerSlice";
 
 // #endregion
 
@@ -84,16 +88,20 @@ function App({
   const [playerPosition, setPlayerPosition, playerPositionRef] = useState<number[]>([18, 12]);
   const [playerDirection, setPlayerdirection, playerDirectionRef] = useState<number>(DirectionEnum.west);
   const [playerDirectionToMove, setPlayerDirectionToMove, playerDirectionToMoveRef] = useState<number | null>(null);
-  const [playerIsMoving, setPlayerIsMoving, playerIsMovingRef] = useState<boolean>(false);
+  // const [playerIsMoving, setPlayerIsMoving, playerIsMovingRef] = useState<boolean>(false);
   const [playerCanInteract, setPlayerCanInteract] = useState<boolean>(false);
   const [showPlayerAnimationFrame, setShowPlayerAnimationFrame] = useState<boolean>(false);
+
+  // Store
+  const dispatch = useAppDispatch();
+  const playerIsMoving = useAppSelector((state) => state.playerReducer.playerIsMoving);
 
   const transitionRef: MutableRefObject<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
 
   const [modalContents, setModalContents, modalContentsRef] = useState<ModalContent>({ head: "", body: { type: "", props: "", key: "" } });
 
   const playerMove = (playerDirectionToMoveLocal: number | null = null) => {
-    if (!playerIsMovingRef.current) return;
+    if (!playerIsMoving) return;
 
     if (playerDirectionToMoveLocal === null) playerDirectionToMoveLocal = playerDirectionToMoveRef.current;
 
@@ -148,7 +156,7 @@ function App({
     }, 50);
 
     _playerMoveTimeout.current = setTimeout(() => {
-      if (playerIsMovingRef.current) playerMove(null);
+      if (playerIsMoving) playerMove(null);
     }, 100);
   };
 
@@ -434,9 +442,7 @@ function App({
 
       setPlayerDirectionToMove(playerDirectionToMoveLocal);
 
-      if (callPlayerMove) {
-        setPlayerIsMoving(true);
-      }
+      if (callPlayerMove) dispatch(setPlayerIsMoving(true));
 
       setKeysPressed(keysPressedUpdate);
     },
@@ -501,7 +507,7 @@ function App({
       setPlayerDirectionToMove(DirectionEnum[filtered.toString() as directonEnumKeyType]);
 
       const playerHasStopped = filtered.length < 1;
-      setPlayerIsMoving(!playerHasStopped);
+      dispatch(setPlayerIsMoving(!playerHasStopped));
 
       if (DirectionEnum[filtered.toString() as directonEnumKeyType] !== undefined) {
         setPlayerdirection(DirectionEnum[filtered.toString() as directonEnumKeyType]);

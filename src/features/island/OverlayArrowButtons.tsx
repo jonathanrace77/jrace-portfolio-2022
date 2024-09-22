@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ArrowButton } from "../interfaces/arrow-button.interface";
+import { ArrowButton } from "../../interfaces/arrow-button.interface";
 
 export default function OverlayArrowButtons({
   handleKeyPress,

@@ -1,6 +1,6 @@
-import { getKeyByValue } from "../scripts/Utils";
-import TileMapEnum from "../enums/TileMapEnum";
-import { overWorldMap } from "../maps/overworldMap";
+import { getKeyByValue } from "../../scripts/Utils";
+import TileMapEnum from "../../enums/TileMapEnum";
+import { overWorldMap } from "../../maps/overworldMap";
 import { useMemo } from "react";
 
 export default function WorldMap({ tileMap }: { tileMap: number[][][] }): React.JSX.Element {

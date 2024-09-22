@@ -1,21 +1,21 @@
-import ContactModalContents from "./modals/ContactModalContents";
+import ContactModalContents from "../modal/ContactModalContents";
 import DarkModeSwitch from "./DarkModeSwitch";
 import React from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ModalContent } from "../interfaces/modal-content.interface";
+import { ModalContent } from "../../interfaces/modal-content.interface";
 
 library.add(fas);
 
 var images = {
-  logo: require("../img/logo_dark.png"),
-  logoDark: require("../img/logo_light.png"),
-  pdf: require("../img/pdf-logo.png"),
+  logo: require("../../img/logo_dark.png"),
+  logoDark: require("../../img/logo_light.png"),
+  pdf: require("../../img/pdf-logo.png"),
 };
 
-var cv = require("../JonathanRaceCv.pdf");
+var cv = require("../../JonathanRaceCv.pdf");
 
 export default function Header({
   updateModal,

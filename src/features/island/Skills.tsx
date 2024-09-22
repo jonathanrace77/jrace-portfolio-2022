@@ -1,13 +1,13 @@
 export default function skills() {
   const images = {
-    SkillsHtml: require("../img/SkillsHtml.png"),
-    SkillsCss: require("../img/SkillsCss.png"),
-    SkillsJs: require("../img/SkillsJs.png"),
-    SkillsReact: require("../img/SkillsReact.png"),
-    SkillsDotNet: require("../img/SkillsDotNet.png"),
-    SkillsCSharp: require("../img/SkillsCSharp.png"),
-    SkillsSql: require("../img/SkillsSql.png"),
-    SkillsOther: require("../img/SkillsOther.png"),
+    SkillsHtml: require("../../img/SkillsHtml.png"),
+    SkillsCss: require("../../img/SkillsCss.png"),
+    SkillsJs: require("../../img/SkillsJs.png"),
+    SkillsReact: require("../../img/SkillsReact.png"),
+    SkillsDotNet: require("../../img/SkillsDotNet.png"),
+    SkillsCSharp: require("../../img/SkillsCSharp.png"),
+    SkillsSql: require("../../img/SkillsSql.png"),
+    SkillsOther: require("../../img/SkillsOther.png"),
   };
 
   return (

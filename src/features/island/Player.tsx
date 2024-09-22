@@ -1,8 +1,16 @@
-import DirectionEnum from "../enums/DirectionEnum";
-import TileMapEnum from "../enums/TileMapEnum";
-import { getKeyByValue } from "../scripts/Utils";
+import DirectionEnum from "../../enums/DirectionEnum";
+import TileMapEnum from "../../enums/TileMapEnum";
+import { getKeyByValue } from "../../scripts/Utils";
 
-export default function Player({ playerCanInteract, playerDirection, showPlayerAnimationFrame }) {
+export default function Player({
+  playerCanInteract,
+  playerDirection,
+  showPlayerAnimationFrame,
+}: {
+  playerCanInteract: boolean;
+  playerDirection: number;
+  showPlayerAnimationFrame: boolean;
+}) {
   let tileValue;
 
   switch (playerDirection) {
