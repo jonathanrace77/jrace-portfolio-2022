@@ -1,5 +1,5 @@
 import { getKeyByValue } from "../../scripts/Utils";
-import TileMapEnum from "../../enums/TileMapEnum";
+import TileMap from "../../maps/TileMap";
 import { overWorldMap } from "../../maps/overworldMap";
 import { useMemo } from "react";
 
@@ -10,7 +10,7 @@ export default function WorldMap({ tileMap }: { tileMap: number[][][] }): React.
 
     for (let row = 0; row < tileMap.length; row++) {
       for (let col = 0; col < tileMap[0].length; col++) {
-        let tile = getKeyByValue(TileMapEnum, tileMap[row][col][0]);
+        let tile = getKeyByValue(TileMap, tileMap[row][col][0]);
 
         worldMap[tileIteration] = <div className="map-tile" data-position={col + "," + row} data-tile={tile} key={tileIteration}></div>;
         tileIteration++;

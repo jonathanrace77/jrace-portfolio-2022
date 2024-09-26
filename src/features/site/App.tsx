@@ -10,9 +10,9 @@ import { portfolioMap } from "../../maps/portfolioMap.js";
 import { homeMap } from "../../maps/homeMap.js";
 
 // Import Game Logic
-import CollisionLevel from "../../enums/CollisionLevelEnum.js";
-import DirectionEnum from "../../enums/DirectionEnum.js";
-import Map from "../../enums/MapEnum.js";
+import CollisionLevel from "../../enums/CollisionLevel.enum";
+import DirectionEnum from "../../enums/Direction.enum";
+import Map from "../../enums/Map.enum";
 import tileCollisionLevels from "../../scripts/TileCollisionLevels.js";
 
 // Import Modals
@@ -47,7 +47,7 @@ import { ModalContent } from "../../interfaces/modal-content.interface.js";
 
 // Store
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setPlayerIsMoving } from "../island/playerSlice";
+import { setPlayerIsMoving, setPlayerDirecton, setPlayerCanInteract, setShowPlayerAnimationFrame } from "../island/playerSlice";
 
 // #endregion
 
@@ -86,15 +86,13 @@ function App({
     west: false,
   });
   const [playerPosition, setPlayerPosition, playerPositionRef] = useState<number[]>([18, 12]);
-  const [playerDirection, setPlayerdirection, playerDirectionRef] = useState<number>(DirectionEnum.west);
   const [playerDirectionToMove, setPlayerDirectionToMove, playerDirectionToMoveRef] = useState<number | null>(null);
-  // const [playerIsMoving, setPlayerIsMoving, playerIsMovingRef] = useState<boolean>(false);
-  const [playerCanInteract, setPlayerCanInteract] = useState<boolean>(false);
-  const [showPlayerAnimationFrame, setShowPlayerAnimationFrame] = useState<boolean>(false);
 
   // Store
   const dispatch = useAppDispatch();
+  const playerCanInteract = useAppSelector((state) => state.playerReducer.playerCanInteract);
   const playerIsMoving = useAppSelector((state) => state.playerReducer.playerIsMoving);
+  const playerDirection = useAppSelector((state) => state.playerReducer.playerDirection);
 
   const transitionRef: MutableRefObject<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
 
@@ -105,13 +103,14 @@ function App({
 
     if (playerDirectionToMoveLocal === null) playerDirectionToMoveLocal = playerDirectionToMoveRef.current;
 
-    setShowPlayerAnimationFrame(true);
+    dispatch(setShowPlayerAnimationFrame(true));
 
     switch (playerDirectionToMoveLocal) {
       case DirectionEnum.east:
         let playerCanMoveEast =
           tileCollisionLevels[tileMapRef.current[playerPositionRef.current[1]][playerPositionRef.current[0] + 1] as keyof typeof tileCollisionLevels] !==
           CollisionLevel.block;
+
         if (!playerCanMoveEast) break;
 
         setPlayerPosition((playerPosition) => [playerPositionRef.current[0] + 1, playerPositionRef.current[1]]);
@@ -152,7 +151,7 @@ function App({
     interactTileLand(tile[0]);
 
     _playerAnimationTimeout.current = setTimeout((current: any) => {
-      setShowPlayerAnimationFrame(false);
+      dispatch(setShowPlayerAnimationFrame(false));
     }, 50);
 
     _playerMoveTimeout.current = setTimeout(() => {
@@ -198,7 +197,7 @@ function App({
   const interactTileLand = (tile: number) => {
     const interactTiles = [714, 827, 920];
 
-    setPlayerCanInteract(false);
+    dispatch(setPlayerCanInteract(false));
 
     if (!interactTiles.includes(tile)) return;
 
@@ -226,46 +225,46 @@ function App({
     const sqlInteractTiles = [[8, 11].toString(), [9, 11].toString()];
     const otherInteractTiles = [[11, 11].toString(), [12, 11].toString()];
 
-    if (htmlInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (htmlInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "HTML", body: <HtmlModalContents /> });
     }
 
-    if (cssInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (cssInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "CSS", body: <CssModalContents /> });
     }
 
-    if (javascriptInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (javascriptInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({
         head: "JAVASCRIPT",
         body: <JavascriptModalContents />,
       });
     }
 
-    if (reactInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (reactInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "REACT", body: <ReactModalContents /> });
     }
 
-    if (dotNetInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (dotNetInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: ".NET", body: <DotNetModalContents /> });
     }
 
-    if (cSharpInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (cSharpInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "C#", body: <CSharpModalContents /> });
     }
 
-    if (sqlInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (sqlInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "SQL", body: <SqlModalContents /> });
     }
 
-    if (otherInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (otherInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "OTHER", body: <OtherModalContents /> });
     }
   };
@@ -276,21 +275,21 @@ function App({
     const herbalCraftInteractTiles = [[7, 4].toString(), [8, 4].toString(), [9, 4].toString(), [10, 4].toString()];
     const benMarshallInteractTiles = [[12, 4].toString(), [13, 4].toString()];
 
-    if (sensoInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (sensoInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({ head: "SENSO", body: <SensoModalContents /> });
     }
 
-    if (herbalCraftInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (herbalCraftInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({
         head: "HERBAL CRAFT",
         body: <HerbalCraftModalContents />,
       });
     }
 
-    if (benMarshallInteractTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (benMarshallInteractTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({
         head: "BEN MARSHALL PRODUCTION",
         body: <BenMarshallModalContents />,
@@ -302,8 +301,8 @@ function App({
     const playerPosition = playerPositionRef.current;
     const videoGameTiles = [[3, 4].toString(), [4, 4].toString(), [5, 4].toString()];
 
-    if (videoGameTiles.includes(playerPosition.toString()) && playerDirectionRef.current === DirectionEnum.north) {
-      setPlayerCanInteract(true);
+    if (videoGameTiles.includes(playerPosition.toString()) && playerDirection === DirectionEnum.north) {
+      dispatch(setPlayerCanInteract(true));
       setModalContents({
         head: '"Falling Block Game"',
         body: <FallingBlockGameModalContents />,
@@ -419,22 +418,22 @@ function App({
 
       switch (keyPressed) {
         case "ArrowRight":
-          setPlayerdirection(DirectionEnum.east);
+          dispatch(setPlayerDirecton(DirectionEnum.east));
           playerDirectionToMoveLocal = DirectionEnum.east;
           keysPressedUpdate.east = true;
           break;
         case "ArrowDown":
-          setPlayerdirection(DirectionEnum.south);
+          dispatch(setPlayerDirecton(DirectionEnum.south));
           playerDirectionToMoveLocal = DirectionEnum.south;
           keysPressedUpdate.south = true;
           break;
         case "ArrowLeft":
-          setPlayerdirection(DirectionEnum.west);
+          dispatch(setPlayerDirecton(DirectionEnum.west));
           playerDirectionToMoveLocal = DirectionEnum.west;
           keysPressedUpdate.west = true;
           break;
         case "ArrowUp":
-          setPlayerdirection(DirectionEnum.north);
+          dispatch(setPlayerDirecton(DirectionEnum.north));
           playerDirectionToMoveLocal = DirectionEnum.north;
           keysPressedUpdate.north = true;
           break;
@@ -510,7 +509,7 @@ function App({
       dispatch(setPlayerIsMoving(!playerHasStopped));
 
       if (DirectionEnum[filtered.toString() as directonEnumKeyType] !== undefined) {
-        setPlayerdirection(DirectionEnum[filtered.toString() as directonEnumKeyType]);
+        dispatch(setPlayerDirecton(DirectionEnum[filtered.toString() as directonEnumKeyType]));
       } else {
         clearTimeout(_playerMoveTimeout.current);
       }
@@ -586,7 +585,7 @@ function App({
               {tileMap === overWorldMap && <Windmill themeIsDarkMode={themeIsDarkMode}></Windmill>}
               {tileMap === overWorldMap && <RubberDuck themeIsDarkMode={themeIsDarkMode}></RubberDuck>}
               {tileMap === skillsMap && <Skills></Skills>}
-              <Player playerDirection={playerDirection} showPlayerAnimationFrame={showPlayerAnimationFrame} playerCanInteract={playerCanInteract}></Player>
+              <Player></Player>
             </div>
           </div>
         </div>

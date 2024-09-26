@@ -1,3 +1,5 @@
 export const getKeyByValue = (object, value) => {
-  return Object.keys(object).find((key) => object[key] === value);
+  for (let [mapKey, mapValue] of object.entries()) {
+    if (mapValue === value) return mapKey;
+  }
 };
