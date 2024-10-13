@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import inputReducer from "../features/island/inputSlice";
+import mapReducer from "../features/island/mapSlice";
+import modalReducer from "../features/site/modalSlice";
 import playerReducer from "../features/island/playerSlice";
 
 export const store = configureStore({
   reducer: {
+    inputReducer: inputReducer,
+    mapReducer: mapReducer,
+    modalReducer: modalReducer,
     playerReducer: playerReducer,
   },
 });

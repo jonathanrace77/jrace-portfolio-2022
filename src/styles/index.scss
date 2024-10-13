@@ -66,6 +66,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+#debug {
+  position: absolute;
+  background: black;
+  color: white;
+  z-index: 9999;
+  height: 75px;
+  width: 300px;
+}
+
 .transition {
   position: absolute;
   top: 0;

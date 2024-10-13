@@ -1,11 +1,11 @@
-import ContactModalContents from "../modal/ContactModalContents";
 import DarkModeSwitch from "./DarkModeSwitch";
 import React from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ModalContent } from "../../interfaces/modal-content.interface";
+import { useAppDispatch } from "../../store/hooks";
+import { setModalHead, setModalIsVisible, setModalName } from "./modalSlice";
 
 library.add(fas);
 
@@ -17,20 +17,13 @@ var images = {
 
 var cv = require("../../JonathanRaceCv.pdf");
 
-export default function Header({
-  updateModal,
-  showModal,
-  toggleDarkMode,
-  themeIsDarkMode,
-}: {
-  updateModal: (modalContent: ModalContent) => void;
-  showModal: () => void;
-  toggleDarkMode: (event: Event) => void;
-  themeIsDarkMode: boolean;
-}) {
+export default function Header({ toggleDarkMode, themeIsDarkMode }: { toggleDarkMode: (event: Event) => void; themeIsDarkMode: boolean }) {
+  const dispatch = useAppDispatch();
+
   const loadContactModal = () => {
-    updateModal({ head: "Contact", body: <ContactModalContents /> });
-    showModal();
+    dispatch(setModalHead("Contact"));
+    dispatch(setModalName("ContactModalContents"));
+    dispatch(setModalIsVisible(true));
   };
 
   return (

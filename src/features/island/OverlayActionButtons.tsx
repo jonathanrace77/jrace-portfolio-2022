@@ -1,6 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { hideModal, setModalIsVisible } from "../site/modalSlice";
 
-export default function OverlayActionButtons({ handleAButtonPress, handleXButtonPress }: { handleAButtonPress: () => void; handleXButtonPress: () => void }) {
+export default function OverlayActionButtons() {
+  const dispatch = useAppDispatch();
+
+  const keyPressed = useAppSelector((state) => state.inputReducer.keyPressed);
+  const modalHead = useAppSelector((state) => state.modalReducer.modalHead);
+  const modalIsVisible = useAppSelector((state) => state.modalReducer.modalIsVisible);
+  const playerCanInteract = useAppSelector((state) => state.playerReducer.playerCanInteract);
+
+  useEffect(() => {
+    if (!keyPressed) return;
+
+    //Handle user inputting 'a' or 'x' in contact form
+    let contactModalLoaded = modalHead === "Contact" && modalIsVisible;
+
+    if (keyPressed === "a" && !contactModalLoaded) handleAButtonPress();
+    if (keyPressed === "x" && !contactModalLoaded) handleXButtonPress();
+  }, [keyPressed]);
+
+  const handleAButtonPress = () => {
+    if (!playerCanInteract) return;
+    dispatch(setModalIsVisible(true));
+  };
+
+  const handleXButtonPress = () => {
+    dispatch(hideModal());
+  };
+
   return (
     <div className="overlay-buttons-action">
       <div
